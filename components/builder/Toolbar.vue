@@ -1,9 +1,6 @@
 <template>
   <div class="toolbar ms-auto">
-    <div
-      class="ms-auto text-center toolbar-btn"
-      @click="deleteSection(section)"
-    >
+    <div class="ms-auto text-center toolbar-btn" @click="hideSection(section)">
       <i class="fas fa-close text-white fa-2x"></i>
     </div>
   </div>
@@ -12,8 +9,8 @@
 export default {
   props: ["section"],
   methods: {
-    deleteSection(section) {
-      this.$store.commit("deleteSection", { section: section });
+    hideSection(section) {
+      this.$store.commit("hideSection", { section: section });
     },
   },
 };

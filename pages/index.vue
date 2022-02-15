@@ -2,10 +2,7 @@
   <div>
     <Navbar />
     <!-- Hero -->
-    <section
-      :id="section.id"
-      class="hero px-0 container-fluid content bg-success text-white"
-    >
+    <section class="hero px-0 container-fluid content bg-success text-white">
       <div class="row justify-content-center">
         <div
           class="

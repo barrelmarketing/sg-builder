@@ -437,6 +437,10 @@ export const mutations = {
     undeleteSection(state, data) {
         state.PageComponents[data.section.id].Style.Deleted = false
     },
+    hideSection(state, data) {
+        state.PageComponents[data.section.id].Style.Selected = false
+        state.PageComponents[data.section.id].Style.Deleted = false
+    },
     nextSection(state, data) {
         console.log(data)
         var index = Object.keys(state.PageComponents).indexOf(data.section.id);
