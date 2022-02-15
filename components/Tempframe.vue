@@ -1,7 +1,7 @@
 <template>
   <section class="content tempframe container-fluid gx-0">
     <div class="row text-center justify-content-center gx-0">
-      <div class="col col-lg-7 mx-auto text-shadow">
+      <div class="col col-lg-10 col-xl-10 mx-auto text-shadow">
         <h2 class="pb-2 fw-bold">{{ section.name }}</h2>
         <div class="hover-text font-weight-bold col-lg-8 mx-auto">
           <BuilderLayoutSelector

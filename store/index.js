@@ -403,6 +403,9 @@ export const state = () => ({
             },
         },
     },
+    CompletionStatus: false,
+    UserID: "",
+    SiteID: "",
 })
 
 // contains your actions
@@ -469,6 +472,9 @@ export const mutations = {
     removeItem(state, data) {
         state.PageComponents[data.section.id].Content[data.element].splice(data.index, 1);
         console.log('removedItem', state.PageComponents[data.section.id].Content[data.element])
+    },
+    savePage(state, data) {
+        state.CompletionStatus = true;
     }
 }
 // your root getters

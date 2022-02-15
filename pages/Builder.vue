@@ -1,8 +1,10 @@
 <template>
   <div>
-    <Navbar />
+    <Navbar v-if="$store.state.CompletionStatus==false" />
     <!-- Builder Main -->
-    <BuilderMain />
+    <BuilderMain v-if="$store.state.CompletionStatus==false" />
+    <!-- preview/proof -->
+    <BuilderProof v-if="$store.state.CompletionStatus==true" />
   </div>
 </template>
 

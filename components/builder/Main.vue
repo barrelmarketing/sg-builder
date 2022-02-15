@@ -4,6 +4,11 @@
     <!-- SIDEBAR -->
     <aside class="bg-light" id="builder-sidebar">
       <BuilderAccordion :sections="PageComponents" @selected="selectSection" />
+      <div class="w-100">
+        <button class="btn btn-success btn-block mt-3" @click="savePage">
+          Save Page
+        </button>
+      </div>
     </aside>
 
     <!-- BUILDER CANVAS -->
@@ -33,9 +38,9 @@ export default {
       this.$store.commit("setSelected", section);
       //   console.log(this.PageComponents[section.id].Style);
     },
-    insertSection(section) {
-      var vm = this;
-      this.$store.commit("setSelected", section);
+   
+    savePage() {
+      this.$store.commit("savePage");
     },
   },
 
