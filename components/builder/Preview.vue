@@ -1,106 +1,104 @@
 <template>
-  <div class="preview">
+  <div class="preview d-flex flex-column justify-content-center">
     <!-- HERO -->
+    <Tempframe
+      v-if="!sections.Hero.Style.Selected"
+      v-show="!sections.Hero.Style.Deleted"
+      :section="sections.Hero"
+    />
     <Hero1
-      :content="pagecomponents.Hero.Content"
-      v-if="pagecomponents.Hero.Style.Selected == 'HeroStyle1'"
+      :section="sections.Hero"
+      v-if="sections.Hero.Style.Selected == 'HeroStyle1'"
+      v-show="!sections.Hero.Style.Deleted"
     />
     <Hero2
-      :content="pagecomponents.Hero.Content"
-      v-if="pagecomponents.Hero.Style.Selected == 'HeroStyle2'"
+      :section="sections.Hero"
+      v-if="sections.Hero.Style.Selected == 'HeroStyle2'"
+      v-show="!sections.Hero.Style.Deleted"
     />
     <!-- END HERO -->
 
     <!-- CONTENT 1 -->
+    <Tempframe
+      v-if="
+        !sections.Content1.Style.Selected && !sections.Content1.Style.Deleted
+      "
+      :section="sections.Content1"
+    />
     <Content1
-      :content="pagecomponents.Content1.Content"
-      v-if="pagecomponents.Content1.Style.Selected == 'ContentStyle1'"
+      :section="sections.Content1"
+      v-if="sections.Content1.Style.Selected == 'ContentStyle1'"
+      v-show="!sections.Content1.Style.Deleted"
     />
     <Content2
-      :content="pagecomponents.Content1.Content"
-      v-if="pagecomponents.Content1.Style.Selected == 'ContentStyle2'"
+      :section="sections.Content1"
+      v-if="sections.Content1.Style.Selected == 'ContentStyle2'"
+      v-show="!sections.Content1.Style.Deleted"
     />
     <!-- END CONTENT 1 -->
+    <Tempframe
+      v-if="!sections.CounterSection.Style.Selected"
+      v-show="!sections.CounterSection.Style.Deleted"
+      :section="sections.CounterSection"
+    />
 
     <StatCounter
-      :content="pagecomponents.CounterSection.Content"
-      v-if="pagecomponents.CounterSection.Style.Selected == 'CounterSection1'"
+      :section="sections.CounterSection"
+      v-if="sections.CounterSection.Style.Selected == 'CounterSection1'"
+      v-show="!sections.CounterSection.Style.Deleted"
     />
 
-    <!-- <Cards2 :content="this.FooterSection" /> -->
+    <Tempframe
+      v-if="
+        !sections.CardsSection.Style.Selected &&
+        !sections.CardsSection.Style.Deleted
+      "
+      :section="sections.CardsSection"
+    />
+    <Cards1
+      v-if="sections.CardsSection.Style.Selected == 'CardsSection1'"
+      v-show="!sections.CardsSection.Style.Deleted"
+      :section="sections.CardsSection"
+    />
+    <Cards2
+      v-if="sections.CardsSection.Style.Selected == 'CardsSection2'"
+      v-show="!sections.CardsSection.Style.Deleted"
+      :section="sections.CardsSection"
+    />
+
+    <Tempframe
+      v-if="!sections.ContactSection.Style.Selected"
+      v-show="!sections.ContactSection.Style.Deleted"
+      :section="sections.ContactSection"
+    />
     <ContactUs
-      :content="this.ContactSection"
-      v-if="pagecomponents.ContactSection.Style.Selected == 'ContactSection1'"
+      :section="sections.ContactSection"
+      v-if="sections.ContactSection.Style.Selected == 'ContactSection1'"
+      v-show="!sections.ContactSection.Style.Deleted"
     />
-    <Footer1
-      :content="this.FooterSection"
-      v-if="pagecomponents.FooterSection.Style.Selected == 'FooterSection1'"
-    />
+    <!--    <Footer1
+      :section="this.FooterSection"
+      v-if="sections.FooterSection.Style.Selected == 'FooterSection1'"
+    /> -->
   </div>
 </template>
 
 <script>
 export default {
   name: "PreviewPage",
-  props: ["pagecomponents"],
+  props: ["sections"],
   data() {
-    return {
-      ContactSection: {
-        title: "Contact Us",
-        bodyText:
-          "We are committed to providing you with the freshest produce from local farmers and producers. We keep costs down through the relationships forged with our suppliers.",
-        formFields: [
-          {
-            label: "First Name",
-            type: "text",
-            name: "FirstName",
-            placeholder: "Enter your name",
-            width: "50%",
-            required: true,
-          },
-          {
-            label: "Last Name",
-            type: "text",
-            name: "LastName",
-            placeholder: "Enter your last name",
-            width: "50%",
-            required: true,
-          },
-          {
-            label: "Email",
-            type: "email",
-            name: "Email",
-            placeholder: "Enter your email",
-            width: "50%",
-            required: true,
-          },
-          {
-            label: "Phone",
-            type: "tel",
-            name: "Phone",
-            placeholder: "Enter your phone number",
-            width: "50%",
-            required: false,
-          },
-          {
-            label: "Message",
-            type: "textarea",
-            name: "Message",
-            placeholder: "Enter your message",
-            width: "100%",
-            required: false,
-          },
-        ],
-      },
-      FooterSection: {
-        title: "footer",
-        bodyText:
-          "We are committed to providing you with the freshest produce from local farmers and producers. We keep costs down through the relationships forged with our suppliers.",
-      },
-    };
+    return {};
   },
   mounted() {
-    console.log("loaded preview:", this.pagecomponents);
+    console.log("loaded preview:", this.sections);
+  },
+  methods: {
+    placeholderClicked(section) {
+      this.$emit("placeholder-clicked", section);
+      console.log("clicked", section);
+    },
   },
 };
 </script>
+

@@ -1,19 +1,25 @@
 <template>
-  <article class="content container-fluid gx-0" :id="id" data-aos="fade-in">
+  <section
+    :id="section.id"
+    class="content container-fluid gx-0"
+    data-aos="fade-in"
+  >
+    <BuilderToolbar :section="section" />
+
     <div class="row text-center justify-content-center gx-0">
       <div class="col col-lg-7 mx-auto text-shadow">
         <i class="fas fa-carrot fa-4x mb-4 text-danger"></i>
-        <h2 class="pb-2 fw-bold">{{ content.title.text }}</h2>
+        <h2 class="pb-2 fw-bold">{{ section.Content.title.text }}</h2>
         <p>
-          {{ content.bodyText.text }}
+          {{ section.Content.bodyText.text }}
         </p>
       </div>
     </div>
-  </article>
+  </section>
 </template>
 
 <script>
 export default {
-  props: ["content", "id"],
+  props: ["section"],
 };
 </script>

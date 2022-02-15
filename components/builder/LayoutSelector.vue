@@ -1,38 +1,46 @@
 <template>
-  <div class="form-check form-check-inline row d-flex mx-0 px-0">
-    <div class="card col mx-1" :data-checked="section.Style.Selected">
+  <div
+    class="
+      form-check form-check-inline
+      row
+      d-flex
+      mx-0
+      px-0
+      text-center
+      layoutSelector
+    "
+  >
+    <div class="card col mx-1" :data-checked="selected == ''">
       <label class="form-check-label h-100">
         <div class="card-body h-100">
           <input
-            class="form-check-input ms-0 me-2"
+            class="form-check-input ms-0 me-2 d-none"
             type="radio"
-            name="LayoutForm"
-            id="blank_layout"
+            :name="'LayoutForm_' + section.id"
+            v-model="selected"
             value=""
-            @change="$emit('input', $event.target.value)"
           />
-          <h5 class="card-title h-100">None</h5>
+          <div class="card-title small h-100">None</div>
         </div>
       </label>
     </div>
     <div
-      class="card col mx-1"
+      class="card col mx-1 px-2 pb-2"
       v-for="option in section.Style.Options"
       :key="option.value"
-      :data-checked="option.value == section.Style.Selected"
+      :data-checked="option.value == selected"
     >
-      <label class="form-check-label" :for="option.value">
+      <label class="form-check-label">
         <div class="card-body">
           <input
-            class="form-check-input ms-0 me-2"
+            class="form-check-input ms-0 me-2 d-none"
             type="radio"
-            name="LayoutForm"
-            :id="option.value"
+            :name="'LayoutForm_' + section.id"
             :value="option.value"
-            @change="$emit('input', $event.target.value)"
+            v-model="selected"
           />
-          <h5 class="card-title">{{ option.label }}</h5>
-          <p :class="'card-text p-3 text-' + option.align">
+          <div class="card-title mb-0 small">{{ option.label }}</div>
+          <p :class="'card-text p-2 text-' + option.align">
             <span
               v-for="placeholder in option.placeholders"
               :key="placeholder"
@@ -51,16 +59,27 @@ export default {
   computed: {
     selected: {
       get() {
-        return this.value;
+        return this.$store.state.PageComponents[this.section.id].Style.Selected;
       },
-      set(newValue) {
-        this.$emit("input", newValue);
-        consosle.log(newValue);
+      set(selected) {
+        console.log(selected);
+        this.$store.commit("setSelected", {
+          section: this.section,
+          selected: selected,
+        });
       },
     },
   },
+  methods: {
+    setSelected(selected) {
+      this.$store.commit("setSelected", {
+        section: this.section,
+        value: selected,
+      });
+    },
+  },
   mounted() {
-    console.log(this.section);
+    // console.log(this.section);
   },
 };
 </script>

@@ -9,109 +9,45 @@
           :data-bs-target="'#collapse' + section.id"
           aria-expanded="false"
           :aria-controls="'collapse' + section.id"
-          @click="selectSection(section)"
         >
           {{ section.Style.BuilderText }}
         </button>
       </h2>
+      <div class="d-grid" v-if="section.Style.Deleted == true">
+        <button
+          class="btn btn-outline-success"
+          @click="undeleteSection(section)"
+        >
+          <i class="fas fa-plus me-3 my-1"></i>Add Section
+        </button>
+      </div>
       <div
         :id="'collapse' + section.id"
         :class="'accordion-collapse collapse ' + section.Style.Show"
+        v-show="!section.Style.Deleted"
         data-bs-parent="#builderAccordion"
       >
         <div class="accordion-body px-0">
-          <h3 class="h4 mt-4">Choose from one of the layouts below:</h3>
-          <BuilderLayoutSelector
-            :section="section"
-            v-model="section.Style.Selected"
-          />
-          <h3 class="h4 mt-4">Enter your text:</h3>
-
-          <!-- STRAIGHT VALUES -->
           <div
-            class="input-group flex-nowrap mb-3"
-            v-if="!section.Content.items"
-            v-for="field in section.Content"
-            :key="field.label"
-          >
-            <span
-              class="font-weight-bold my-auto fw-bold col-6 col-md-3"
-              :id="section.id + '-' + field.label"
-              >{{ field.label }}:</span
-            >
-            <input
-              type="text"
-              class="form-control border-0 border-bottom col"
-              :placeholder="field.text"
-              :aria-label="field.label"
-              :aria-describedby="section.id + '-' + field.label"
-              v-model="field.text"
-            />
-            <div class="col-2 ms-1" v-if="field.options">
-              <select
-                class="form-select"
-                aria-label="font size"
-                v-model="field.size"
-              >
-                <option value="md" disabled selected>Size</option>
-                <option
-                  v-for="option in field.options"
-                  :key="option"
-                  :value="option"
-                >
-                  {{ option.toUpperCase() }}
-                </option>
-              </select>
-            </div>
-          </div>
+            class="p-3"
+            v-if="section.Description"
+            v-html="section.Description"
+          ></div>
+          <h5 class="my-2">Choose a layout:</h5>
+          <BuilderLayoutSelector :section="section" />
+          <h5 class="mt-4 mb-2">Enter your text:</h5>
 
-          <!-- REPEATER -->
-          <div
-            class="input-group flex-nowrap mb-3"
-            v-if="section.Content.items"
-            v-for="(item, index) in section.Content.items"
-            :key="item.text"
-          >
-            <span
-              class="font-weight-bold my-auto fw-bold col-6 col-md-3"
-              :id="section.id + '-' + item.text"
-              >Item {{ index + 1 }}:</span
-            >
-            <input
-              type="text"
-              class="form-control border-0 border-bottom col-1 w-25"
-              :placeholder="item.value"
-              :aria-label="item.value"
-              :aria-describedby="section.id + '-' + item.value"
-              v-model="item.value"
-            />
-            <input
-              type="text"
-              class="form-control border-0 border-bottom mx-2 w-50"
-              :placeholder="item.text"
-              :aria-label="item.text"
-              :aria-describedby="section.id + '-' + item.text"
-              v-model="item.text"
-            />
-            <div class="col-2 ms-1" v-if="item.options">
-              <select
-                class="form-select"
-                aria-label="font size"
-                v-model="item.size"
-              >
-                <option value="md" disabled selected>Size</option>
-                <option
-                  v-for="option in item.options"
-                  :key="option"
-                  :value="option"
-                >
-                  {{ option.toUpperCase() }}
-                </option>
-              </select>
-            </div>
-          </div>
+          <!-- Static inputs -->
+          <BuilderInputgroup :section="section" />
 
           <div class="d-flex justify-content-end">
+            <button
+              type="button"
+              class="btn btn-danger me-3"
+              @click="deleteSection(section)"
+            >
+              Delete
+            </button>
             <button
               type="button"
               class="btn btn-success"
@@ -119,7 +55,7 @@
               data-bs-toggle="collapse"
               :data-bs-target="'#collapse' + section.id"
             >
-              Save
+              Next
             </button>
           </div>
         </div>
@@ -133,15 +69,23 @@ export default {
   props: ["sections"],
   methods: {
     saveSection(section) {
-      this.$emit("save", section);
+      this.$store.commit("nextSection", { section: section });
     },
-    selectSection(section) {
-      console.log(section.Style);
-      if (section.Style.Collapsed == "collapsed") {
-        this.$emit("select", section);
-      }
+    deleteSection(section) {
+      this.$store.commit("deleteSection", { section: section });
+    },
+    undeleteSection(section) {
+      this.$store.commit("undeleteSection", { section: section });
+    },
+
+    setSelected(selected) {
+      this.$store.commit("setSelected", {
+        section: this.section,
+        value: selected,
+      });
     },
   },
+  computed: {},
   mounted() {},
 };
 </script>

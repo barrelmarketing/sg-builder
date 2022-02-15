@@ -1,5 +1,7 @@
         <template>
-  <article class="content container gx-0" data-aos="fade-in">
+  <section :id="section.id" class="content container gx-0" data-aos="fade-in">
+    <BuilderToolbar :section="section" />
+
     <div
       class="row justify-content-center p-0 gx-sm-5 text-center text-lg-start"
     >
@@ -27,29 +29,29 @@
         "
       >
         <i class="fas fa-carrot fa-4x mb-4 text-danger"></i>
-        <h2 class="pb-2 fw-bold">{{ content.title.text }}</h2>
+        <h2 class="pb-2 fw-bold">{{ section.Content.title.text }}</h2>
         <p>
-          {{ content.bodyText.text }}
+          {{ section.Content.bodyText.text }}
         </p>
       </div>
     </div>
-  </article>
+  </section>
 </template>
 
 <script>
 export default {
-  props: ["content"],
+  props: ["section"],
 };
 </script>
 
 <style scoped>
-article img {
+section img {
   max-height: max(500px, 18vw);
   z-index: 1;
 }
 
 @media (max-width: 960px) {
-  article img {
+  section img {
     margin-top: -2em;
   }
 }

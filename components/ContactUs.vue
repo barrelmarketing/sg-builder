@@ -1,24 +1,25 @@
 <template>
-  <article class="content container py-5 gx-0" data-aos="fade-in">
+  <section :id="section.id" class="content container-fluid py-5 gx-0">
+    <BuilderToolbar :section="section" />
+
     <div class="row justify-content-center g-5">
       <div class="col-8 py-3 text-center">
-        <h2 class="fw-bold">Contact Us</h2>
-        <p>
-          Et ipsum nostrud id officia do magna nulla elit reprehenderit mollit
-          duis aliqua nisi officia. Id ea voluptate officia reprehenderit est
-          consequat ex consequat. Ut est consectetur eu et nulla aliqua nostrud
-          ad quis consequat.
+        <h2 :class="section.Content.heading.size">
+          {{ section.Content.heading.text }}
+        </h2>
+        <p :class="section.Content.bodyText.size">
+          {{ section.Content.bodyText.text }}
         </p>
       </div>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-10 col-lg-8 col-xl-8">
+      <div class="col-10 col-lg-8 col-xl-6">
         <form>
           <div class="row">
             <div
               class="mb-3 sg-form-item"
-              v-for="item in content.formFields"
+              v-for="item in section.Content.formFields"
               :key="item.name"
               :style="'width:' + item.width"
             >
@@ -56,11 +57,11 @@
         </form>
       </div>
     </div>
-  </article>
+  </section>
 </template>
 
 <script>
 export default {
-  props: ["content"],
+  props: ["section"],
 };
 </script>

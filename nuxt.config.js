@@ -27,7 +27,7 @@ export default {
     script: [
       // { src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js' },
       // { src: 'https://unpkg.com/aos@next/dist/aos.js' },
-      { src: '/bootstrap.bundle.min.js', }
+      { src: '/sg-builder/bootstrap.bundle.min.js', }
     ],
   },
 
